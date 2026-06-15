@@ -1,15 +1,6 @@
 {% extends "layouts/base.html" %}
 
 {% block content %}
-<style>
-  /* Embedded videos (oEmbed returns a fixed-size iframe) — make them responsive 16:9 */
-  .post-body iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; }
-  /* Left-align KaTeX display equations (default is centered on both the
-     .katex-display block AND its inner .katex child) */
-  .post-body .katex-display,
-  .post-body .katex-display > .katex { text-align: left; margin-left: 0; }
-</style>
-
 <section class="p-section">
   <div class="row">
     <h1>{{ page.title }}</h1>
