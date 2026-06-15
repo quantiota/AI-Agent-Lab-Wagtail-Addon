@@ -51,12 +51,12 @@ docker/
 
 1. **Copy the files into the lab's `docker/` tree:**
    ```bash
-   cp -r ai-agent-lab-blog/docker/* /path/to/AI-Agent-Lab/docker/
+   cp -r AI-Agent-Lab-Wagtail-Addon/docker/* /path/to/AI-Agent-Lab/docker/
    ```
 
 2. **Add the env var.** Append `.env.blog.example` to `docker/.env` and set a real secret:
    ```bash
-   cat ai-agent-lab-blog/.env.blog.example >> /path/to/AI-Agent-Lab/docker/.env
+   cat AI-Agent-Lab-Wagtail-Addon/.env.blog.example >> /path/to/AI-Agent-Lab/docker/.env
    # then edit docker/.env → set WAGTAIL_SECRET_KEY
    ```
    `DOMAIN` is already in the lab's `.env`; the blog auto-derives `ALLOWED_HOSTS`/CSRF and
