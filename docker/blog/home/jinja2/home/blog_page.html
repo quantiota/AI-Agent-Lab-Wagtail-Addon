@@ -1,0 +1,31 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<style>
+  /* Embedded videos (oEmbed returns a fixed-size iframe) — make them responsive 16:9 */
+  .post-body iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; }
+  /* Left-align KaTeX display equations (default is centered on both the
+     .katex-display block AND its inner .katex child) */
+  .post-body .katex-display,
+  .post-body .katex-display > .katex { text-align: left; margin-left: 0; }
+</style>
+
+<section class="p-section">
+  <div class="row">
+    <h1>{{ page.title }}</h1>
+    <p class="p-text--small u-text--muted">{{ page.date.strftime("%d %B %Y") }}{% if page.owner %} · {{ page.owner.get_full_name() or page.owner.username }}{% endif %}</p>
+
+    {% if page.image %}
+    <div class="p-image-container--16-9 is-cover">
+      {{ image(page.image, "fill-1200x675", class="p-image-container__image") }}
+    </div>
+    {% endif %}
+
+    {% if page.intro %}<p class="p-heading--4">{{ page.intro }}</p>{% endif %}
+
+    <div class="post-body">
+      {{ page.body|richtext }}
+    </div>
+  </div>
+</section>
+{% endblock %}

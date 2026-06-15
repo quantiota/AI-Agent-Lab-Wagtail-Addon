@@ -1,0 +1,50 @@
+# AI Agent Lab — Blog add-on nginx vhost (rendered to blog.conf by the
+# docker-compose.blog.yml command via `envsubst '$DOMAIN'`).
+# Self-contained: its own :80 redirect + ACME location and :443 proxy, so it
+# does not depend on anything in default.conf.
+
+# HTTP → HTTPS redirect for the blog subdomain (+ Let's Encrypt http-01).
+server {
+    listen 80;
+    server_name blog.${DOMAIN};
+
+    location / {
+        return 302 https://$host$request_uri;
+    }
+    location ~ /.well-known {
+        root /usr/share/nginx/html;
+        allow all;
+    }
+}
+
+# HTTPS — proxy to the Wagtail (gunicorn) container on :8000.
+server {
+    client_max_body_size 50M;
+    listen 443 ssl;
+    server_name blog.${DOMAIN};
+
+    ssl_certificate /etc/letsencrypt/live/blog.${DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/blog.${DOMAIN}/privkey.pem;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_dhparam /etc/ssl/certs/dhparam.pem;
+    ssl_session_timeout 1d;
+    ssl_session_cache shared:SSLBlog:10m;
+    add_header Strict-Transport-Security max-age=15768000;
+
+    location / {
+        proxy_pass http://blog:8000;
+
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_http_version 1.1;
+
+        proxy_buffering off;
+    }
+
+    location ~ /.well-known {
+        allow all;
+    }
+}

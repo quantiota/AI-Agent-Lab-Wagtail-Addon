@@ -1,0 +1,5 @@
+Django>=6,<6.1
+wagtail>=7.4,<7.5
+Jinja2
+whitenoise
+wagtail-katex

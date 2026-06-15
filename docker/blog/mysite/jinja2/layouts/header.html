@@ -1,0 +1,33 @@
+<style>
+  .lj-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    padding: 0 24px;
+    background: #1a1a1a;
+    border-bottom: 1px solid #333;
+  }
+  .lj-header__brand { display: flex; align-items: center; gap: 10px; }
+  .lj-header__brand img { width: 28px; height: 28px; }
+  .lj-header__title { font-size: 17px; font-weight: 600; color: #fff; letter-spacing: -0.01em; }
+  .lj-header__actions { display: flex; align-items: center; gap: 16px; }
+  .lj-header .theme-toggle-btn {
+    width: 34px; height: 34px; padding: 0; border: none; background: none;
+    cursor: pointer; display: inline-flex; align-items: center; justify-content: center; line-height: 0;
+  }
+</style>
+<header class="lj-header">
+   <div class="lj-header__brand">
+      <img src="{{ url_for('static', filename='img/quantiota-white-icon.svg') }}" alt="Lab Journal">
+      <span class="lj-header__title">Lab Journal</span>
+   </div>
+   <div class="lj-header__actions">
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark theme">
+         <span style="display: inline-flex; align-items: center;">
+            <img src="{{ url_for('static', filename='img/sun-02-stroke-standard-white.svg') }}" alt="Light mode" class="theme-toggle-icon light-icon" width="24" height="24">
+            <img src="{{ url_for('static', filename='img/moon-02-stroke-standard-white.svg') }}" alt="Dark mode" class="theme-toggle-icon dark-icon" width="24" height="24" style="display: none;">
+         </span>
+      </button>
+   </div>
+</header>

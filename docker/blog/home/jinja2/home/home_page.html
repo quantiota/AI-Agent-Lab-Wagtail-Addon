@@ -1,0 +1,25 @@
+{% extends "layouts/base.html" %}
+
+{# VERSION B — Vanilla p-card grid, 3-up via classic row/col-4 (wraps cleanly) #}
+{% block content %}
+<section class="p-section">
+  <h2 class="p-muted-heading">{{ page.title }}</h2>
+
+  <div class="row" style="max-width: 80rem;">
+    {% for post in page.get_children().live().specific()|sort(attribute="date", reverse=true) %}
+    <div class="col-4">
+      <div class="p-card">
+        {% if post.image %}
+        <div class="p-card__image-container p-image-container--16-9 is-cover">
+          {{ image(post.image, "fill-720x405", class="p-image-container__image") }}
+        </div>
+        {% endif %}
+        <h3 class="p-card__title"><a href="{{ pageurl(post) }}">{{ post.title }}</a></h3>
+        <p class="p-text--small u-text--muted">{{ post.date.strftime("%d %B %Y") }}</p>
+        <p>{{ post.intro }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

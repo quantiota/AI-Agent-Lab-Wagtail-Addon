@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      {# Add your own analytics here if you want (Google Analytics, Plausible, …). #}
+
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>{% if page %}{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %} — {% endif %}Lab Journal</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      {# Add your favicon here, e.g.:
+         <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/your-icon.svg') }}"> #}
+
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="application-name" content="Lab Journal">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+      <meta name="apple-mobile-web-app-title" content="Lab Journal">
+      {% if page and page.search_description %}
+      <meta name="description" content="{{ page.search_description }}">
+      {% elif page and page.intro %}
+      <meta name="description" content="{{ page.intro }}">
+      {% else %}
+      <meta name="description" content="A blog built with Wagtail on the AI Agent Lab.">
+      {% endif %}
+
+      {# Canonical URL + Open Graph / Twitter cards (absolute https URLs from the Site record) #}
+      {% if page %}
+      <link rel="canonical" href="{{ page.full_url }}">
+      <meta property="og:type" content="article">
+      <meta property="og:site_name" content="Lab Journal">
+      <meta property="og:url" content="{{ page.full_url }}">
+      <meta property="og:title" content="{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}">
+      {% if page.search_description %}
+      <meta property="og:description" content="{{ page.search_description }}">
+      {% elif page.intro %}
+      <meta property="og:description" content="{{ page.intro }}">
+      {% endif %}
+      {% if page.image %}
+      <meta property="og:image" content="{{ image_url(page.image, 'fill-1200x630') }}">
+      <meta name="twitter:card" content="summary_large_image">
+      {% else %}
+      <meta name="twitter:card" content="summary">
+      {% endif %}
+      {% endif %}
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+      {# KaTeX — LaTeX math rendering (explicit katex.render on wagtail-katex embeds;
+         no auto-render and output:"html" — both crashed Chrome's renderer). #}
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          if (typeof katex === "undefined") return;
+          document.querySelectorAll("[data-katex-embed]").forEach(function(el) {
+            try {
+              katex.render(el.getAttribute("data-katex-embed"), el, {
+                displayMode: true,
+                throwOnError: false,
+                output: "html"
+              });
+            } catch (e) { /* leave the raw source visible on error */ }
+          });
+        });
+      </script>
+
+      <script src="{{ url_for('static', filename='js/703e23c9-lazysizes-noscript-native-loading.5.1.2.min.js')}}" defer></script>
+   </head>
+   <body>
+        <main>
+            {% include 'layouts/header.html' %}
+
+            {% block content %}
+            {# Child template content is rendered here #}
+            {% endblock %}
+         </main>
+            {% include 'layouts/footer.html' %}
+
+        <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+      </body>
+</html>
