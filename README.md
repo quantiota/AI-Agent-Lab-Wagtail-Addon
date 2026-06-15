@@ -87,6 +87,10 @@ docker/
 
 Visit `https://blog.<your-domain>` and log in at `/admin/`.
 
+## Demo
+
+[Demo](https://blog.quantiota.ai)
+
 ## Day-to-day
 
 Always include both compose files for any command touching the blog:
