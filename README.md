@@ -1,4 +1,4 @@
-# AI Agent Lab — Blog add-on
+# AI Agent Lab — Wagtail Blog add-on
 
 An optional **Wagtail blog** for the [AI Agent Lab](https://github.com/quantiota/AI-Agent-Lab),
 served at `blog.<your-domain>`. It is **not shipped with the lab core** — drop these
